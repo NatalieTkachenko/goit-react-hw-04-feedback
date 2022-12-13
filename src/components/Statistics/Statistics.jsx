@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SectionName, Reply } from './Statistics.styled.js';
+import { Reply } from './Statistics.styled.js';
 
 export default function Statistics({ good, neutral, bad, total, positivePercetage }) {
 	return (
