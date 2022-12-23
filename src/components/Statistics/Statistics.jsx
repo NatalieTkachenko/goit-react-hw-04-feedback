@@ -9,7 +9,7 @@ export default function Statistics({ good, neutral, bad, total, positivePercetag
 			<Reply>Neutral: {neutral}</Reply>
 			<Reply>Bad: {bad}</Reply>
 			<Reply>Total: {total}</Reply>
-			<Reply>Positive feedbacks: {positivePercetage} %</Reply>
+			<Reply>Positive feedbacks: {positivePercetage}%</Reply>
 		</div>
 	);
 }
