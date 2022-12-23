@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Statistics from './Statistics/Statistics';
 import FeedbackOptions from './FeedbackOptions/Feedbackoptions';
@@ -23,7 +22,7 @@ class App extends Component {
 		}));
 	};
 
-	handleTotal = (state) => {
+	handleTotal = () => {
 		let sum = 0;
 		for (const key in this.state) {
 			sum = sum + this.state[key];
@@ -31,7 +30,7 @@ class App extends Component {
 		return sum;
 	};
 
-	handlePositive = (state) => {
+	handlePositive = () => {
 		if (this.handleTotal() === 0) {
 			return 0;
 		} else {
