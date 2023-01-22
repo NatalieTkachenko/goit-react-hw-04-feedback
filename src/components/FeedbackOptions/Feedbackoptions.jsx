@@ -1,16 +1,18 @@
 import PropTypes from 'prop-types';
 import { Btnarea, Button } from 'components/FeedbackOptions/FeedbackOptions.styled.js';
 
-export default function FeedbackOptions({ options, onLeaveFeedback }) {
+
+
+export default function FeedbackOptions({options, onLeaveFeedback }) {
 	return (
 		<Btnarea>
-			{Object.keys(options).map((option) => (
+			{Object.keys(options).map((option, i) => (
 				<Button
 					key={option}
 					type='button'
 					onClick={onLeaveFeedback}
 				>
-					{option}
+					{options[i]}
 				</Button>
 			))}
 		</Btnarea>
@@ -18,6 +20,6 @@ export default function FeedbackOptions({ options, onLeaveFeedback }) {
 }
 
 FeedbackOptions.propTypes = {
-	options: PropTypes.object,
+	options: PropTypes.array,
 	onLeaveFeedback: PropTypes.func,
 };

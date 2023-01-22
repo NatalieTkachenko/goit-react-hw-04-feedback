@@ -1,65 +1,75 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { useState } from 'react';
 import Statistics from './Statistics/Statistics';
 import FeedbackOptions from './FeedbackOptions/Feedbackoptions';
 import NotificationMessage from "./NotificationMessage/NotificationMessage";
 import { AppArea, SectionName } from './App.styled';
 
-class App extends Component {
-	state = {
-		good: 0,
-		neutral: 0,
-		bad: 0,
-	};
 
-	handlePositiveFeedback = (event) => {
+const App = () => {
+	const [ good, setGood ] = useState( 0 );
+	const [ neutral, setNeutral ] = useState( 0 );
+	const [ bad, setBad ] = useState( 0 );
+
+	const options = ['good', 'neutral', 'bad']
+
+	const handlePositiveFeedback = (event) => {
 		const keyToUpdate = event.target.innerText.toLowerCase();
-		this.addFeedback(keyToUpdate);
+		addFeedback(keyToUpdate);
 	};
 
-	addFeedback = (item) => {
-		this.setState((prevState) => ({
-			[item]: prevState[item] + 1,
-		}));
+	const addFeedback = ( item ) =>
+	{
+		switch ( item )
+		{
+			case 'good':
+				setGood( good + 1 );
+				break;
+			case 'neutral':
+				setNeutral( neutral + 1 );
+				break;
+			case 'bad':
+				setBad( bad + 1 );
+				break;
+			default:
+				return;
+		}		
 	};
 
-	handleTotal = () => {
-		let sum = 0;
-		for (const key in this.state) {
-			sum = sum + this.state[key];
-		}
+	const handleTotal = () => {
+		let sum = good + neutral + bad;
 		return sum;
 	};
 
-	handlePositive = () => {
-		if (this.handleTotal() === 0) {
+	const handlePositive = () => {
+		if (handleTotal() === 0) {
 			return 0;
 		} else {
 			let result = 0;
-			result = Math.round(((this.state.good + this.state.neutral) / this.handleTotal()) * 100);
+			result = Math.round(((good + neutral) / handleTotal()) * 100);
 
 			return result;
 		}
 	};
-
-	render() {
-		return (
-			<AppArea>
+	
+	return(<AppArea>
 				<SectionName>Please live feedback (don't forget to be positive 😎 )</SectionName>
 				<FeedbackOptions
-					options={this.state}
-					onLeaveFeedback={this.handlePositiveFeedback}
+					options={options}
+					onLeaveFeedback={handlePositiveFeedback}
 				/>
 				<SectionName>Statistics 🖥</SectionName>
-				{!this.handleTotal() ? <NotificationMessage/> : <Statistics
-					good={this.state.good}
-					bad={this.state.bad}
-					neutral={this.state.neutral}
-					total={this.handleTotal()}
-					positivePercetage={this.handlePositive()}
+				{!handleTotal() ? <NotificationMessage/> : <Statistics
+					good={good}
+					bad={bad}
+					neutral={neutral}
+					total={handleTotal()}
+					positivePercetage={handlePositive()}
 				/>}				
-			</AppArea>
-		);
-	}
+			</AppArea>)
+
 }
+
+
 
 export default App;
